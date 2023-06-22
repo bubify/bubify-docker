@@ -22,5 +22,5 @@ clean:
 	-docker volume rm bubify-frontend-profile_pictures
 
 clean-db:
-	-docker rm -f mysql
+	-docker rm -f bubify-mysql
 	-docker volume rm -f mysql-db

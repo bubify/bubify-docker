@@ -1,21 +1,13 @@
 version: "3.9"
 
 services:
-  bubify:
-    container_name: bubify
-    depends_on:
-      - mysql
-    image: bubify
+  bubify-frontend:
+    container_name: bubify-frontend
+    build:
+      context: ./frontend
     ports:
-      - "80:80"
-      - "8900:8900"
-      - "3000:3000"
+      - "80:3000"
     volumes:
-      - ./nginx/default:/etc/nginx/sites-enabled/default
-      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
-      - frontend-profile_pictures:/home/bubify/profile_pictures
-      - ./depot/au_backups:/home/bubify/au_backups
-      - ./backend:/home/bubify/backend
       # Due to file permissions issues with npm and Docker file sharing
       # we will not expose the entire frontend folder
       - ./frontend/src:/home/bubify/frontend/src
@@ -29,6 +21,27 @@ services:
       - frontend-node_modules:/home/bubify/frontend/node_modules
 
     environment:
+      - AU_BACKEND_HOST=http://localhost:8900
+      - AU_FRONTEND_HOST=http://localhost
+      - AU_APP_API=http://localhost:8900
+      - AU_APP_WEBSOCKET=http://localhost:8900/portfolio
+      - NODE_OPTIONS=--openssl-legacy-provider
+
+  bubify-backend:
+    container_name: bubify-backend
+    depends_on:
+      - mysql
+    build:
+      context: ./backend
+    ports:
+      - "8900:8900"
+    volumes:
+      - backend-au_backups:/home/bubify/au_backups
+      - backend-profile_pictures:/home/bubify/profile_pictures
+      - backend-target:/home/bubify/backend/target
+      - ./backend:/home/bubify/backend
+
+    environment:
       - AU_DB_HOST=mysql
       - AU_HOSTNAME=localhost
       - AU_DB_USER=ioopm
@@ -37,7 +50,6 @@ services:
       - AU_FRONTEND_HOST=http://localhost
       - AU_APP_API=http://localhost:8900
       - AU_APP_WEBSOCKET=http://localhost:8900/portfolio
-      - NODE_OPTIONS=--openssl-legacy-provider
 
   mysql:
     container_name: bubify-mysql
@@ -59,7 +71,11 @@ volumes:
     name: bubify-frontend-build
   frontend-node_modules:
     name: bubify-frontend-node_modules
-  frontend-profile_pictures:
-    name: bubify-frontend-profile_pictures
+  backend-profile_pictures:
+    name: bubify-backend-profile_pictures
+  backend-au_backups:
+    name: bubify-backend-au_backups
+  backend-target:
+    name: bubify-target
 
 
