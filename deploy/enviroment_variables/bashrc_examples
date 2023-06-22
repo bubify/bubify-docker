@@ -1,0 +1,18 @@
+alias spring_development='mvn spring-boot:run -Dspring-boot.run.arguments=--spring.profiles.active=development'
+alias spring_production='mvn spring-boot:run -Dspring-boot.run.arguments=--spring.profiles.active=production'
+
+export AU_KEY_ALIAS=tomcat
+export AU_KEY_STORE=/home/deploy/keystore/keystore.p12
+export AU_KEY_STORE_PASSWORD=password
+export AU_KEY_STORE_TYPE=PKCS12
+export AU_BACKEND_HOST=https://hubert.course.it.uu.se/api
+export AU_FRONTEND_HOST=https://hubert.course.it.uu.se/
+export AU_APP_API=https://hubert.course.it.uu.se/api
+export AU_APP_WEBSOCKET=https://hubert.course.it.uu.se/api/portfolio
+
+export AU_DB_HOST=localhost
+export AU_DB_NAME=hubert
+export AU_DB_USER=test
+export AU_DB_PASSWORD=test
+export AU_GITHUB_CLIENT_ID=id
+export AU_GITHUB_CLIENT_SECRET=secret
