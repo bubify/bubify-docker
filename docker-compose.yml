@@ -10,15 +10,16 @@ services:
     volumes:
       # Due to file permissions issues with npm and Docker file sharing
       # we will not expose the entire frontend folder
-      - ./frontend/src:/home/bubify/frontend/src
-      - ./frontend/tsconfig.json:/home/bubify/frontend/tsconfig.json
-      - ./frontend/public:/home/bubify/frontend/public
-      - ./frontend/package.json:/home/bubify/frontend/package.json
-      - ./frontend/package-lock.json:/home/bubify/frontend/package-lock.json
-      - ./frontend/.env.development:/home/bubify/frontend/.env.development
-      - ./frontend/.env.production:/home/bubify/frontend/.env.production
-      - frontend-build:/home/bubify/frontend/build
-      - frontend-node_modules:/home/bubify/frontend/node_modules
+      - ./frontend:/home/bubify/frontend
+      # - ./frontend/src:/home/bubify/frontend/src
+      # - ./frontend/tsconfig.json:/home/bubify/frontend/tsconfig.json
+      # - ./frontend/public:/home/bubify/frontend/public
+      # - ./frontend/package.json:/home/bubify/frontend/package.json
+      # - ./frontend/package-lock.json:/home/bubify/frontend/package-lock.json
+      # - ./frontend/.env.development:/home/bubify/frontend/.env.development
+      # - ./frontend/.env.production:/home/bubify/frontend/.env.production
+      # - frontend-build:/home/bubify/frontend/build
+      # - frontend-node_modules:/home/bubify/frontend/node_modules
 
     environment:
       - AU_BACKEND_HOST=http://localhost:8900
