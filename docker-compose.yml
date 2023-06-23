@@ -36,10 +36,12 @@ services:
       context: ./backend
     ports:
       - "8900:8900"
+      - "5005:5005"
     volumes:
       - backend-au_backups:/home/bubify/au_backups
       - backend-profile_pictures:/home/bubify/profile_pictures
       - backend-target:/home/bubify/backend/target
+      - backend-m2:/home/bubify/.m2
       - ./backend:/home/bubify/backend
 
     environment:
@@ -78,5 +80,7 @@ volumes:
     name: bubify-backend-au_backups
   backend-target:
     name: bubify-target
+  backend-m2:
+    name: bubify-backend-m2
 
 
