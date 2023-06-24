@@ -1,8 +1,13 @@
 SHELL := /bin/bash
-.PHONY: docker frontend backend clean clean-db setup
+.PHONY: docker frontend backend clean clean-db setup update
 
 setup:
 	bash tool.sh
+
+update:
+	git pull
+	cd frontend && git checkout main && git pull origin main && cd ..
+	cd backend && git checkout main && git pull origin main && cd ..
 
 docker:
 	docker build -t bubify .
