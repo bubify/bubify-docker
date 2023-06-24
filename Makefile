@@ -9,14 +9,14 @@ update:
 	cd frontend && git checkout main && git pull origin main && cd ..
 	cd backend && git checkout main && git pull origin main && cd ..
 
-docker:
-	docker build -t bubify .
+restart-backend:
+	docker exec -it bubify-backend curl -X GET http://127.0.0.1:8900/restart
 
-frontend:
-	docker exec -it bubify bash -c 'cd frontend && npm ci'
+add-achievement:
+	docker exec -it bubify-backend bash -c 'cd backend/toolbox && zsh add-achievement.sh'
 
-backend:
-	docker exec -it bubify bash -c 'cd backend && mvn compile'
+add-user:
+	docker exec -it bubify-backend bash -c 'cd backend/toolbox && zsh add-user.sh'
 
 start:
 	docker compose up -d
