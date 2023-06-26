@@ -1,6 +1,6 @@
 [submodule "frontend"]
 	path = frontend
-	url = https://github.com/bubify/backend.git
+	url = https://github.com/bubify/bubify-backend.git
         branch = main
 [submodule "backend"]
 	path = backend
