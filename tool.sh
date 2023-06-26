@@ -1,4 +1,5 @@
 #!/bin/bash
+source ~/.bashrc
 
 is_empty() {
     local value=$1
@@ -23,6 +24,12 @@ fi
 courseData="{\"name\":\"$course\"}"
 userData="{\"firstName\":\"$first\",\"lastName\":\"$last\",\"email\":\"$email\",\"userName\":\"$username\",\"role\":\"TEACHER\"}"
 
-docker exec -it bubify-backend curl -X POST http://localhost:8900/dev/course    -H 'Content-Type: application/json'    -d "$courseData"
+docker exec -it -e courseData=$courseData bubify-backend bash -c 'PROTOCOL=http;
+if [[ $PRODUCTION = "true" ]]; then
+  PROTOCOL="https";
+fi; curl -k -X POST $PROTOCOL://localhost:8900/internal/course    -H "Content-Type: application/json"    -d "$courseData"'
 
-docker exec -it bubify-backend curl -X POST http://localhost:8900/dev/user    -H 'Content-Type: application/json'    -d "$userData"
+docker exec -it -e userData=$userData bubify-backend bash -c 'PROTOCOL=http;
+if [[ $PRODUCTION = "true" ]]; then
+  PROTOCOL="https";
+fi; curl -k -X POST $PROTOCOL://localhost:8900/internal/user    -H "Content-Type: application/json"    -d "$userData"'

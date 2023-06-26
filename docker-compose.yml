@@ -22,12 +22,12 @@ services:
       #- my_domain.ssl:/home/bubify/ssl.key
 
     environment:
-      - BACKEND_INTERNAL=bubify-backend-production:8900
-      - AU_BACKEND_HOST=https://localhost/api
-      - AU_FRONTEND_HOST=https://localhost/
-      - AU_APP_API=https://localhost/api
-      - AU_APP_WEBSOCKET=https://localhost/api/portfolio
-      - NODE_OPTIONS=--openssl-legacy-provider
+      - AU_BACKEND_HOST
+      - AU_FRONTEND_HOST
+      - AU_APP_API
+      - AU_APP_WEBSOCKET
+      - BACKEND_INTERNAL
+      - NODE_OPTIONS
 
   bubify-backend-production:
     profiles:
@@ -47,16 +47,17 @@ services:
       - backend-m2:/home/bubify/.m2
       - ./backend:/home/bubify/backend
     environment:
-      - AU_DB_HOST=mysql
-      - AU_HOSTNAME=localhost
-      - AU_DB_USER=ioopm
-      - AU_DB_PASSWORD=ioopm
-      - AU_BACKEND_HOST=https://localhost/api
-      - AU_FRONTEND_HOST=https://localhost/
-      - AU_APP_API=https://localhost/api
-      - AU_APP_WEBSOCKET=https://localhost/api/portfolio
-      - AU_GITHUB_CLIENT_ID=CHANGE_ME
-      - AU_GITHUB_CLIENT_SECRET=CHANGE_ME
+      - AU_BACKEND_HOST
+      - AU_FRONTEND_HOST
+      - AU_APP_API
+      - AU_APP_WEBSOCKET
+      - AU_GITHUB_CLIENT_ID
+      - AU_GITHUB_CLIENT_SECRET
+      - AU_DB_HOST
+      - AU_DB_PORT
+      - AU_DB_USER
+      - AU_DB_PASSWORD
+      - PRODUCTION
 
 # development starts here
   bubify-frontend:
@@ -72,11 +73,11 @@ services:
       - ./frontend:/home/bubify/frontend
 
     environment:
-      - AU_BACKEND_HOST=http://localhost:8900
-      - AU_FRONTEND_HOST=http://localhost
-      - AU_APP_API=http://localhost:8900
-      - AU_APP_WEBSOCKET=http://localhost:8900/portfolio
-      - NODE_OPTIONS=--openssl-legacy-provider
+      - AU_BACKEND_HOST
+      - AU_FRONTEND_HOST
+      - AU_APP_API
+      - AU_APP_WEBSOCKET
+      - NODE_OPTIONS
 
   bubify-backend:
     profiles:
@@ -98,14 +99,14 @@ services:
       - ./backend:/home/bubify/backend
 
     environment:
+      - AU_BACKEND_HOST
+      - AU_FRONTEND_HOST
+      - AU_APP_API
+      - AU_APP_WEBSOCKET
       - AU_DB_HOST=mysql
       - AU_HOSTNAME=localhost
       - AU_DB_USER=ioopm
       - AU_DB_PASSWORD=ioopm
-      - AU_BACKEND_HOST=http://localhost:8900
-      - AU_FRONTEND_HOST=http://localhost
-      - AU_APP_API=http://localhost:8900
-      - AU_APP_WEBSOCKET=http://localhost:8900/portfolio
       - AU_GITHUB_CLIENT_ID=CHANGE_ME
       - AU_GITHUB_CLIENT_SECRET=CHANGE_ME
 
