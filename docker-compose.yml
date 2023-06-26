@@ -1,12 +1,73 @@
 version: "3.9"
 
 services:
-  bubify-frontend:
+# production starts here
+  bubify-frontend-production:
+    profiles:
+      - production
     container_name: bubify-frontend
     build:
       context: ./frontend
+      dockerfile: Dockerfile.production
     ports:
-      - "80:3000"
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./frontend:/home/bubify/frontend
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./nginx/default:/etc/nginx/sites-enabled/default
+      # Change to your own certficate. Default is used for testing
+      # with localhost
+      #- my_domain.crt:/home/bubify/ssl.crt
+      #- my_domain.ssl:/home/bubify/ssl.key
+
+    environment:
+      - BACKEND_INTERNAL=bubify-backend-production:8900
+      - AU_BACKEND_HOST=https://localhost/api
+      - AU_FRONTEND_HOST=https://localhost/
+      - AU_APP_API=https://localhost/api
+      - AU_APP_WEBSOCKET=https://localhost/api/portfolio
+      - NODE_OPTIONS=--openssl-legacy-provider
+
+  bubify-backend-production:
+    profiles:
+      - production
+    container_name: bubify-backend
+    depends_on:
+      - mysql
+    build:
+      context: ./backend
+      dockerfile: Dockerfile.production
+    ports:
+      - "8900:8900"
+    volumes:
+      - backend-au_backups:/home/bubify/au_backups
+      - backend-profile_pictures:/home/bubify/profile_pictures
+      - backend-target:/home/bubify/backend/target
+      - backend-m2:/home/bubify/.m2
+      - ./backend:/home/bubify/backend
+    environment:
+      - AU_DB_HOST=mysql
+      - AU_HOSTNAME=localhost
+      - AU_DB_USER=ioopm
+      - AU_DB_PASSWORD=ioopm
+      - AU_BACKEND_HOST=https://localhost/api
+      - AU_FRONTEND_HOST=https://localhost/
+      - AU_APP_API=https://localhost/api
+      - AU_APP_WEBSOCKET=https://localhost/api/portfolio
+      - AU_GITHUB_CLIENT_ID=CHANGE_ME
+      - AU_GITHUB_CLIENT_SECRET=CHANGE_ME
+
+# development starts here
+  bubify-frontend:
+    profiles:
+      - development
+    container_name: bubify-frontend
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.development
+    ports:
+      - "3000:3000"
     volumes:
       - ./frontend:/home/bubify/frontend
 
@@ -18,11 +79,14 @@ services:
       - NODE_OPTIONS=--openssl-legacy-provider
 
   bubify-backend:
+    profiles:
+      - development
     container_name: bubify-backend
     depends_on:
       - mysql
     build:
       context: ./backend
+      dockerfile: Dockerfile.development
     ports:
       - "8900:8900"
       - "5005:5005"
@@ -42,6 +106,8 @@ services:
       - AU_FRONTEND_HOST=http://localhost
       - AU_APP_API=http://localhost:8900
       - AU_APP_WEBSOCKET=http://localhost:8900/portfolio
+      - AU_GITHUB_CLIENT_ID=CHANGE_ME
+      - AU_GITHUB_CLIENT_SECRET=CHANGE_ME
 
   mysql:
     container_name: bubify-mysql
