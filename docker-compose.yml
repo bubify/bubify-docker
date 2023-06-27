@@ -117,11 +117,11 @@ services:
       - mysql-db:/var/lib/mysql
     restart: unless-stopped
     environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: ioopm
-      MYSQL_USER: ioopm
-      MYSQL_PASSWORD: ioopm
-      MYSQL_HOST: localhost
+      - MYSQL_DATABASE
+      - MYSQL_USER
+      - MYSQL_PASSWORD
+      - MYSQL_ROOT_PASSWORD=root
+      - TZ=Europe/Stockholm
 
 volumes:
   mysql-db:
