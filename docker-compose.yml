@@ -103,12 +103,12 @@ services:
       - AU_FRONTEND_HOST
       - AU_APP_API
       - AU_APP_WEBSOCKET
-      - AU_DB_HOST=mysql
-      - AU_HOSTNAME=localhost
-      - AU_DB_USER=ioopm
-      - AU_DB_PASSWORD=ioopm
-      - AU_GITHUB_CLIENT_ID=CHANGE_ME
-      - AU_GITHUB_CLIENT_SECRET=CHANGE_ME
+      - AU_DB_HOST
+      - AU_HOSTNAME
+      - AU_DB_USER
+      - AU_DB_PASSWORD
+      - AU_GITHUB_CLIENT_ID
+      - AU_GITHUB_CLIENT_SECRET
 
   mysql:
     container_name: bubify-mysql
