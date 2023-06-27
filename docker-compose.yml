@@ -104,7 +104,7 @@ services:
       - AU_APP_API
       - AU_APP_WEBSOCKET
       - AU_DB_HOST
-      - AU_HOSTNAME
+      - AU_DB_PORT
       - AU_DB_USER
       - AU_DB_PASSWORD
       - AU_GITHUB_CLIENT_ID
