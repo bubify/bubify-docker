@@ -53,6 +53,7 @@ services:
       - AU_APP_WEBSOCKET
       - AU_GITHUB_ORG
       - AU_GITHUB_USER
+      - AU_GITHUB_USER_SECRET
       - AU_GITHUB_CLIENT_ID
       - AU_GITHUB_CLIENT_SECRET
       - AU_DB_HOST
@@ -111,6 +112,7 @@ services:
       - AU_DB_PASSWORD
       - AU_GITHUB_ORG
       - AU_GITHUB_USER
+      - AU_GITHUB_USER_SECRET
       - AU_GITHUB_CLIENT_ID
       - AU_GITHUB_CLIENT_SECRET
 
