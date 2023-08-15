@@ -51,6 +51,8 @@ services:
       - AU_FRONTEND_HOST
       - AU_APP_API
       - AU_APP_WEBSOCKET
+      - AU_GITHUB_ORG
+      - AU_GITHUB_USER
       - AU_GITHUB_CLIENT_ID
       - AU_GITHUB_CLIENT_SECRET
       - AU_DB_HOST
@@ -107,6 +109,8 @@ services:
       - AU_DB_PORT
       - AU_DB_USER
       - AU_DB_PASSWORD
+      - AU_GITHUB_ORG
+      - AU_GITHUB_USER
       - AU_GITHUB_CLIENT_ID
       - AU_GITHUB_CLIENT_SECRET
 
