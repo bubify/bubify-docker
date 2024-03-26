@@ -7,17 +7,26 @@ build-production:
 build-development:
 	docker compose --profile development --env-file .env.development build
 
+build-testing:
+	docker compose --profile testing build
+
 up-production:
 	docker compose --profile production --env-file .env.production up -d
 
 up-development:
 	docker compose --profile development --env-file .env.development up -d
 
+up-testing:
+	docker compose --profile testing up -d
+
 down-production:
 	docker compose --profile production down
 
 down-development:
 	docker compose --profile development down
+
+down-testing:
+	docker compose --profile testing down
 
 setup:
 	bash tool.sh
