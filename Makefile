@@ -8,7 +8,7 @@ build-development:
 	docker compose --profile development --env-file .env.development build
 
 build-testing:
-	docker compose --profile testing build
+	docker compose --profile testing --env-file .env.testing build
 
 up-production:
 	docker compose --profile production --env-file .env.production up -d
@@ -17,7 +17,7 @@ up-development:
 	docker compose --profile development --env-file .env.development up -d
 
 up-testing:
-	docker compose --profile testing up -d
+	docker compose --profile testing --env-file .env.testing up -d
 
 down-production:
 	docker compose --profile production down
