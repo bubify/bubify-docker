@@ -137,6 +137,7 @@ services:
       - ./backend:/home/bubify/backend
     environment:
       - AU_BACKEND_HOST
+      - AU_FRONTEND_HOST
       - AU_APP_API
       - AU_APP_WEBSOCKET
       - AU_DB_PORT
