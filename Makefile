@@ -28,6 +28,9 @@ down-development:
 down-testing:
 	docker compose --profile testing down
 
+test:
+	backend/test.sh
+
 setup:
 	bash tool.sh
 
@@ -50,6 +53,7 @@ clean:
 	-docker rm -f bubify-frontend
 	-docker rm -f bubify-backend
 	-docker rm -f bubify-mysql
+	-docker rm -f bubify-backend-testing
 	-docker volume rm bubify-mysql-db
 	-docker volume rm bubify-frontend-build
 	-docker volume rm bubify-frontend-node_modules
