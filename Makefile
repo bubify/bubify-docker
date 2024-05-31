@@ -8,7 +8,7 @@ build-development:
 	docker compose --profile development --env-file .env.development build
 
 build-testing:
-	docker compose --profile testing --env-file .env.testing build
+	docker compose --profile testing --env-file .env.testing build --build-arg TEST_TYPE=$(TYPE)
 
 up-production:
 	docker compose --profile production --env-file .env.production up -d
@@ -29,7 +29,7 @@ down-testing:
 	docker compose --profile testing down
 
 test:
-	backend/test.sh
+	backend/test.sh $(TYPE)
 
 setup:
 	bash tool.sh

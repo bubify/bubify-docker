@@ -121,14 +121,11 @@ services:
     profiles:
       - testing
     container_name: bubify-backend-testing
-    # depends_on:
-    #   - mysql
     build:
       context: ./backend
       dockerfile: Dockerfile.testing
     ports:
       - "8900:8900"
-      - "5005:5005"
     volumes:
       - backend-au_backups:/home/bubify/au_backups
       - backend-profile_pictures:/home/bubify/profile_pictures
