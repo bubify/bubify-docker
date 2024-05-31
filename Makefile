@@ -1,5 +1,5 @@
 SHELL := /bin/bash
-.PHONY: docker frontend backend clean clean-db setup update build-production build-development up-production up-development clean-docker
+.PHONY: docker frontend backend clean clean-db setup update build-production build-development build-testing up-production up-development up-testing test clean-docker
 
 build-production:
 	docker compose --profile production --env-file .env.production build
