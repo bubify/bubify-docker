@@ -1,5 +1,5 @@
 SHELL := /bin/bash
-.PHONY: docker frontend backend clean clean-db setup update build-production build-development build-testing up-production up-development up-testing test clean-docker
+.PHONY: docker frontend backend clean clean-db setup update build-production build-development build-testing build-testing-unit build-testing-integration up-production up-development up-testing test test-unit test-integration clean-docker
 
 build-production:
 	docker compose --profile production --env-file .env.production build
@@ -8,7 +8,13 @@ build-development:
 	docker compose --profile development --env-file .env.development build
 
 build-testing:
-	docker compose --profile testing --env-file .env.testing build --build-arg TEST_TYPE=$(TYPE)
+	docker compose --profile testing --env-file .env.testing build --build-arg TEST_TYPE=
+
+build-testing-unit:
+	docker compose --profile testing --env-file .env.testing build --build-arg TEST_TYPE=unit
+
+build-testing-integration:
+	docker compose --profile testing --env-file .env.testing build --build-arg TEST_TYPE=integration
 
 up-production:
 	docker compose --profile production --env-file .env.production up -d
@@ -29,7 +35,13 @@ down-testing:
 	docker compose --profile testing down
 
 test:
-	backend/test.sh $(TYPE)
+	backend/test.sh
+
+test-unit:
+	backend/test.sh unit
+
+test-integration:
+	backend/test.sh integration
 
 setup:
 	bash tool.sh
