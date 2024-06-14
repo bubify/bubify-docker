@@ -1,5 +1,5 @@
 SHELL := /bin/bash
-.PHONY: docker frontend backend clean clean-db setup update build-production build-development up-production up-development clean-docker
+.PHONY: docker frontend backend clean clean-db setup update build-production build-development build-testing build-testing-unit build-testing-integration up-production up-development up-testing test test-unit test-integration clean-docker
 
 build-production:
 	docker compose --profile production --env-file .env.production build
@@ -7,17 +7,41 @@ build-production:
 build-development:
 	docker compose --profile development --env-file .env.development build
 
+build-testing:
+	docker compose --profile testing --env-file .env.testing build --build-arg TEST_TYPE=
+
+build-testing-unit:
+	docker compose --profile testing --env-file .env.testing build --build-arg TEST_TYPE=unit
+
+build-testing-integration:
+	docker compose --profile testing --env-file .env.testing build --build-arg TEST_TYPE=integration
+
 up-production:
 	docker compose --profile production --env-file .env.production up -d
 
 up-development:
 	docker compose --profile development --env-file .env.development up -d
 
+up-testing:
+	docker compose --profile testing --env-file .env.testing up -d
+
 down-production:
 	docker compose --profile production down
 
 down-development:
 	docker compose --profile development down
+
+down-testing:
+	docker compose --profile testing down
+
+test:
+	backend/test.sh
+
+test-unit:
+	backend/test.sh unit
+
+test-integration:
+	backend/test.sh integration
 
 setup:
 	bash tool.sh
@@ -41,6 +65,7 @@ clean:
 	-docker rm -f bubify-frontend
 	-docker rm -f bubify-backend
 	-docker rm -f bubify-mysql
+	-docker rm -f bubify-backend-testing
 	-docker volume rm bubify-mysql-db
 	-docker volume rm bubify-frontend-build
 	-docker volume rm bubify-frontend-node_modules
