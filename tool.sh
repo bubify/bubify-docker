@@ -24,12 +24,12 @@ fi
 courseData="{\"name\":\"$course\"}"
 userData="{\"firstName\":\"$first\",\"lastName\":\"$last\",\"email\":\"$email\",\"userName\":\"$username\",\"role\":\"TEACHER\"}"
 
-docker exec -it -e courseData=$courseData bubify-backend bash -c 'PROTOCOL=http;
+docker exec -it -e courseData="$courseData" bubify-backend bash -c 'PROTOCOL=http;
 if [[ $PRODUCTION = "true" ]]; then
   PROTOCOL="https";
 fi; curl -k -X POST $PROTOCOL://localhost:8900/internal/course    -H "Content-Type: application/json"    -d "$courseData"'
 
-docker exec -it -e userData=$userData bubify-backend bash -c 'PROTOCOL=http;
+docker exec -it -e userData="$userData" bubify-backend bash -c 'PROTOCOL=http;
 if [[ $PRODUCTION = "true" ]]; then
   PROTOCOL="https";
 fi; curl -k -X POST $PROTOCOL://localhost:8900/internal/user    -H "Content-Type: application/json"    -d "$userData"'
